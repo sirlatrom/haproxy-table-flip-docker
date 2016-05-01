@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+
+  server1:
+    image: nginx:alpine
+    volumes:
+      - ./index1.txt:/usr/share/nginx/html/index.html:ro
+    ports:
+      - "81:80"
+
+  server2:
+    image: nginx:alpine
+    volumes:
+      - ./index2.txt:/usr/share/nginx/html/index.html:ro
+    ports:
+      - "82:80"
+
+  lb:
+    image: haproxy:alpine
+    volumes:
+      - .:/tmp
+    ports:
+      - "51000:80"
+    command: [ haproxy, -f, /tmp/config.cfg ]
