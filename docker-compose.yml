@@ -1,6 +1,11 @@
 version: '2'
 
 services:
+  ab:
+    build:
+      context: ab
+    volumes:
+      - ./results:/tmp
 
   server1:
     image: nginx:alpine
